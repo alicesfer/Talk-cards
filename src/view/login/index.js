@@ -3,14 +3,21 @@ import "./login.css";
 
 import Logo from '../LOgo.svg'
 
+import firebase from '../../config/firebase';
+import 'firebase/compat/auth';
+
 function Login() {
 
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState();
-
+  const [msgTipo, setMsgTipo] = useState();
 
   function logar(){
-    alert('VAMOS LOGAR');
+    firebase.auth().signInWithEmailAndPassword(email, senha).then(resultado =>{
+      setMsgTipo('sucesso')
+    }).catch(erro =>{
+      setMsgTipo('erro')
+    })
   }
 
   return (
@@ -18,7 +25,7 @@ function Login() {
       <form className="form-signin mx-auto">
         <div className="text-center mb-4">
           <img className="mb-4" src={Logo} alt="" width="150" height="150"/>
-          <h1 className="h3 mb-3 fw-normal text-white fw-bold">{email} - {senha}</h1>
+          <h1 className="h3 mb-3 fw-normal text-white fw-bold">Login</h1>
         </div>
 
         <div className="form-floating">
@@ -34,9 +41,8 @@ function Login() {
         <button onClick={logar} className="btn w-100 btn-login" type="button">Logar</button> 
 
         <div className="msg-login text-white text-center my-5">
-          <span><strong>WoW!</strong> Você está conectado! &#128526;</span>
-          <br></br>
-          <span><strong>Ops!</strong> Verifique se o usuário ou a senha estão corretos! &#128546;</span>
+          {msgTipo === 'sucesso' && <span><strong>WoW!</strong> Você está conectado! &#128526;</span>}
+          {msgTipo === 'erro' && <span><strong>Ops!</strong> Verifique se o usuário ou a senha estão corretos! &#128546;</span>}
         </div>
 
         <div className="opcoes-login mt-5 text-center">
