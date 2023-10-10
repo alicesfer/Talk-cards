@@ -19,6 +19,7 @@ function NovoUsuario(){
         setMsgTipo(null);
         
         if(!email || !senha){
+            setCarregando(0);
             setMsgTipo('erro')
             setMsg('Você precisa informar o e-mail e senha para fazer o cadastro.')
             return;
@@ -67,11 +68,11 @@ function NovoUsuario(){
 
 
                 {
-                    carregando ? <div class="spinner-border text-danger" role="status"></div>
+                    carregando ? <div class="spinner-border text-danger mt-3" role="status"></div>
                     : <button onClick={cadastrar} type="button" className="btn btn-lg btn-block mt-3 mb-5 btn-cadastro w-100">Cadastrar</button>
                 }
 
-                <div className="msg-login text-black text-center my-5">
+                <div className="msg-login text-black text-center ">
                 {msgTipo === 'sucesso' && <span><strong>WoW!</strong> Usuário cadastrado com sucesso &#128526;</span>}
                 {msgTipo === 'erro' && <span><strong>Ops!</strong> {msg} &#128546;</span>}
                 </div>
