@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Navbar from '../../components/navbar/'
 import firebase from '../../config/firebase';
 import 'firebase/compat/auth';
 
@@ -50,35 +51,37 @@ function NovoUsuario(){
 
 
     return (
-        <div className="form-cadastro">
-            <form className="text-center form-login mx-auto mt-5">
-                <h1 className="h3 mb-3 text-black fw-bold">Cadastro</h1>
+        <><Navbar/>
+            <div className="form-cadastro">
+                <form className="text-center form-login mx-auto mt-5">
+                    <h1 className="h3 mb-3 text-black fw-bold">Cadastro</h1>
 
-                <div className="form-floating">
-                    <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control my-2" id="floatingInput" placeholder="E-mail"/>
-                    <label for="floatingInput">Email</label>
-                </div>
+                    <div className="form-floating">
+                        <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control my-2" id="floatingInput" placeholder="E-mail"/>
+                        <label for="floatingInput">Email</label>
+                    </div>
 
-                <div className="form-floating">
-                    <input onChange={(e) => setSenha(e.target.value)} type="password" className="form-control my-2" id="floatingPassword" placeholder="Senha"/>
-                    <label for="floatingPassword">Senha</label>
-                </div>
-
-
+                    <div className="form-floating">
+                        <input onChange={(e) => setSenha(e.target.value)} type="password" className="form-control my-2" id="floatingPassword" placeholder="Senha"/>
+                        <label for="floatingPassword">Senha</label>
+                    </div>
 
 
-                {
-                    carregando ? <div class="spinner-border text-danger mt-3" role="status"></div>
-                    : <button onClick={cadastrar} type="button" className="btn btn-lg btn-block mt-3 mb-5 btn-cadastro w-100">Cadastrar</button>
-                }
 
-                <div className="msg-login text-black text-center ">
-                {msgTipo === 'sucesso' && <span><strong>WoW!</strong> Usuário cadastrado com sucesso &#128526;</span>}
-                {msgTipo === 'erro' && <span><strong>Ops!</strong> {msg} &#128546;</span>}
-                </div>
 
-            </form>
-        </div>
+                    {
+                        carregando ? <div class="spinner-border text-danger mt-3" role="status"></div>
+                        : <button onClick={cadastrar} type="button" className="btn btn-lg btn-block mt-3 mb-5 btn-cadastro w-100">Cadastrar</button>
+                    }
+
+                    <div className="msg-login text-black text-center ">
+                    {msgTipo === 'sucesso' && <span><strong>WoW!</strong> Usuário cadastrado com sucesso &#128526;</span>}
+                    {msgTipo === 'erro' && <span><strong>Ops!</strong> {msg} &#128546;</span>}
+                    </div>
+
+                </form>
+            </div>
+        </>
     )
 }
 
