@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./login.css";
-import {Link} from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 import Navbar from '../../components/navbar'
 import Logo from '../LOgo.svg'
@@ -8,24 +8,35 @@ import Logo from '../LOgo.svg'
 import firebase from '../../config/firebase';
 import 'firebase/compat/auth';
 
+import { useSelector, useDispatch } from "react-redux";
+
 function Login() {
 
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState();
   const [msgTipo, setMsgTipo] = useState();
 
+  const dispatch = useDispatch();
+
   function logar(){
     firebase.auth().signInWithEmailAndPassword(email, senha).then(resultado =>{
       setMsgTipo('sucesso')
+      setTimeout(() => {
+        dispatch({type: 'LOG_IN', usuarioEmail: email})
+      }, 2000)
     }).catch(erro =>{
       setMsgTipo('erro')
     })
+
   }
 
   return (
     <>
       <Navbar/>
       <div className="login-content d-flex align-items-center">
+
+        {useSelector(state => state.usuarioLogado) > 0 ? <Navigate to="/"/> : null}
+        
         <form className="form-signin mx-auto">
           <div className="text-center mb-4">
             <img className="mb-4" src={Logo} alt="" width="150" height="150"/>
@@ -50,9 +61,9 @@ function Login() {
           </div>
 
           <div className="opcoes-login mt-5 text-center">
-            <a href="#" className="mx-2">Recuperar Senha</a>
+            <Link to="/usuariorecuperarsenha" className="mx-2">Recuperar Senha</Link>
             <span className="text-white">&#9733;</span>
-            <Link to="novousuario" className="mx-2">Quero Cadastrar</Link>
+            <Link to="/novousuario" className="mx-2">Quero Cadastrar</Link>
           </div>
         </form>
       </div>
