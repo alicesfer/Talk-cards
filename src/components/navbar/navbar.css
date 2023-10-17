@@ -9,3 +9,7 @@
 .nav-item a:hover{
     color: #f21657;
 }
+
+.navbar-toggler:focus{
+    box-shadow: 0 0 0 1px;
+}
