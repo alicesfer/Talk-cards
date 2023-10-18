@@ -1,0 +1,11 @@
+.form-group{
+    margin-bottom: 15px;
+}
+
+.btn-login{
+    background-color: white;
+}
+
+.btn-login:hover{
+    background-color: #f21657;
+} 
