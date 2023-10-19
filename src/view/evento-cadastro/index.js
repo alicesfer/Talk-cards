@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import "./evento-cadastro.css";
-import { Link } from 'react-router-dom';
 
 import Navbar from '../../components/navbar'
-import Logo from '../LOgo.svg'
 
 import firebase from '../../config/firebase';
 import 'firebase/compat/storage';
@@ -34,7 +32,7 @@ function EventoCadastro(){
         storage.ref(`imagens/${foto.name}`).put(foto).then(()=>{
                 db.collection('eventos').add({
                     titulo: titulo,
-                    tipo: 'tipo',
+                    tipo: tipo,
                     detalhes: detalhes,
                     data: data,
                     hora: hora,
