@@ -44,12 +44,12 @@ function Login() {
           </div>
 
           <div className="form-floating">
-            <input onChange={(e) => setEmail(e.target.value) } type="email" className="form-control my-2" id="floatingInput" placeholder="E-mail"/>
+            <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control my-2" id="floatingInput" placeholder="E-mail"/>
             <label for="floatingInput">Email</label>
           </div>
 
           <div className="form-floating">
-            <input onChange={(e) => setSenha(e.target.value) } type="password" className="form-control my-2" id="floatingPassword" placeholder="Senha"/>
+            <input onChange={(e) => setSenha(e.target.value)} type="password" className="form-control my-2" id="floatingPassword" placeholder="Senha"/>
             <label for="floatingPassword">Senha</label>
           </div>
 
