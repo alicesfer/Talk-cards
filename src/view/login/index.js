@@ -15,21 +15,24 @@ function Login() {
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState();
   const [msgTipo, setMsgTipo] = useState();
+  const [carregando, setCarregando] = useState();
 
   const dispatch = useDispatch();
 
   function logar(){
+    setCarregando(1)
     firebase.auth().signInWithEmailAndPassword(email, senha).then(resultado =>{
       setMsgTipo('sucesso')
+      setCarregando(0)
       setTimeout(() => {
         dispatch({type: 'LOG_IN', usuarioEmail: email})
       }, 2000)
     }).catch(erro =>{
       setMsgTipo('erro')
+      setCarregando(0)
     })
 
   }
-
   return (
     <>
       <Navbar/>
@@ -53,7 +56,12 @@ function Login() {
             <label for="floatingPassword">Senha</label>
           </div>
 
-          <button onClick={logar} className="btn w-100 btn-login" type="button">Logar</button> 
+          {
+          carregando ? <div className="row"><div class="mx-auto spinner-border text-danger mt-3" role="status"></div></div>
+          : <button onClick={logar} className="btn w-100 btn-login" type="button">Logar</button> 
+          }
+
+          
 
           <div className="msg-login text-white text-center my-5">
             {msgTipo === 'sucesso' && <span><strong>WoW!</strong> Você está conectado! &#128526;</span>}

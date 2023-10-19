@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import "./evento-cadastro.css";
+import {v4 as uuidv4} from 'uuid';
 
 import Navbar from '../../components/navbar'
 
@@ -20,42 +22,52 @@ function EventoCadastro(){
     const [hora, setHora] = useState();
     const [foto, setFoto] = useState();
     const [carregando, setCarregando] = useState();
-
     const storage = firebase.storage();
     const db = firebase.firestore();
     const usuarioEmail = useSelector(state => state.usuarioEmail)
 
 
     function cadastrar(){
+        if(!titulo || !tipo || !detalhes || !data || !data || !hora){
+            setMsgTipo('erro');
+            setCarregando(0)
+            return;
+        }
         setMsgTipo(null);
         setCarregando(1);
-        storage.ref(`imagens/${foto.name}`).put(foto).then(()=>{
-                db.collection('eventos').add({
-                    titulo: titulo,
-                    tipo: tipo,
-                    detalhes: detalhes,
-                    data: data,
-                    hora: hora,
-                    usuario: usuarioEmail,
-                    visualizacoes: 0,
-                    foto: foto.name,
-                    publico: 1,
-                    criacao: new Date()
-                });
-                setMsgTipo('sucesso');
-                setCarregando(0)
+        const uuid = uuidv4()
+        db.collection('eventos').add({
+            titulo: titulo,
+            tipo: tipo,
+            detalhes: detalhes,
+            data: data,
+            hora: hora,
+            usuario: usuarioEmail,
+            visualizacoes: 0,
+            uuid: uuid,
+            publico: 1,
+            criacao: new Date()
+        }).then(()=>{
+            if(foto){
+                storage.ref(`imagens/${uuid}`).put(foto)
             }
-        ).catch(erro=>{
+            else{
+                console.log('sem foto')
+            }
+            setMsgTipo('sucesso');
+            setCarregando(0)
+        }).catch(erro => {
             console.log(erro)
             setMsgTipo('erro');
             setCarregando(0)
-        })
+        });
     }
 
 
     return(
         <>
         <Navbar/>
+        {useSelector(state => state.usuarioLogado) > 0 ? null : <Navigate to="/"/> }
         <div className="col-12 p-3">
             <div className="row text-center">
                 <h3 className="mx-auto fw-bold">Novo Evento</h3>
