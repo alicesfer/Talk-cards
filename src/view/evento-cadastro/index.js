@@ -36,7 +36,7 @@ function EventoCadastro(){
         setMsgTipo(null);
         setCarregando(1);
         const uuid = uuidv4()
-        db.collection('eventos').add({
+        const body = {
             titulo: titulo,
             tipo: tipo,
             detalhes: detalhes,
@@ -47,13 +47,11 @@ function EventoCadastro(){
             uuid: uuid,
             publico: 1,
             criacao: new Date()
-        }).then(()=>{
-            if(foto){
-                storage.ref(`imagens/${uuid}`).put(foto)
-            }
-            else{
-                console.log('sem foto')
-            }
+        }
+        foto ? Object.assign(body, {foto: foto.name}): Object.assign(body, {foto: null})
+        
+        db.collection('eventos').add(body).then(()=>{
+            foto && storage.ref(`imagens/${uuid}`).put(foto);
             setMsgTipo('sucesso');
             setCarregando(0)
         }).catch(erro => {
