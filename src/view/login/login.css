@@ -1,13 +1,9 @@
 .login-content{
     width: 100%;
-    padding: 15%;
-    margin: auto;
-    background-color: #614ea6;
-    height: 100vh;
 }
 
 .btn-login{
-    background-color: white;
+    background-color: #614ea6;
 }
 
 .btn-login:hover{
@@ -16,7 +12,7 @@
 
 .opcoes-login a{
     text-decoration: none;
-    color: white;
+    color: #000;
     transition: .3s ease-in;
 }
 

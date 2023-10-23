@@ -2,10 +2,6 @@
     margin-bottom: 15px;
 }
 
-.btn-login{
-    background-color: white;
-}
-
-.btn-login:hover{
+.btn-cadastro:hover{
     background-color: #f21657;
 } 

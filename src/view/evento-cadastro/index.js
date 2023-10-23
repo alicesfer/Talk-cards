@@ -52,9 +52,16 @@ function EventoCadastro(){
         
         db.collection('eventos').add(body).then((resultado)=>{
             console.log(resultado)
-            foto && storage.ref(`imagens/${resultado.id+'.'+foto.name.split('.').pop()}`).put(foto);
-            setMsgTipo('sucesso');
-            setCarregando(0)
+            if(foto){storage.ref(`imagens/${resultado.id+'.'+foto.name.split('.').pop()}`).put(foto).then(()=>{
+                setMsgTipo('sucesso');
+                setCarregando(0);
+            })
+            }
+            else{
+                setMsgTipo('sucesso');
+                setCarregando(0);
+            }
+                
         }).catch(erro => {
             console.log(erro)
             setMsgTipo('erro');

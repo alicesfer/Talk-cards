@@ -35,8 +35,8 @@ function Login() {
   }
   return (
     <>
-      <Navbar/>
-      <div className="login-content d-flex align-items-center">
+    <Navbar/>
+      <div className="login-content d-flex align-items-center my-5 py-5">
 
         {useSelector(state => state.usuarioLogado) > 0 ? <Navigate to="/"/> : null}
         
@@ -58,19 +58,19 @@ function Login() {
 
           {
           carregando ? <div className="row"><div class="mx-auto spinner-border text-danger mt-3" role="status"></div></div>
-          : <button onClick={logar} className="btn w-100 btn-login" type="button">Logar</button> 
+          : <button onClick={logar} className="btn w-100 btn-login text-white" type="button">Logar</button> 
           }
 
           
 
-          <div className="msg-login text-white text-center my-5">
+          <div className="msg-login text-center my-5">
             {msgTipo === 'sucesso' && <span><strong>WoW!</strong> Você está conectado! &#128526;</span>}
             {msgTipo === 'erro' && <span><strong>Ops!</strong> Verifique se o usuário ou a senha estão corretos! &#128546;</span>}
           </div>
 
           <div className="opcoes-login mt-5 text-center">
             <Link to="/usuariorecuperarsenha" className="mx-2">Recuperar Senha</Link>
-            <span className="text-white">&#9733;</span>
+            <span>&#9733;</span>
             <Link to="/novousuario" className="mx-2">Quero Cadastrar</Link>
           </div>
         </form>
