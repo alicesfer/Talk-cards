@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import "./evento-cadastro.css";
-import {v4 as uuidv4} from 'uuid';
 
 import Navbar from '../../components/navbar'
 
@@ -35,7 +34,6 @@ function EventoCadastro(){
         }
         setMsgTipo(null);
         setCarregando(1);
-        const uuid = uuidv4()
         const body = {
             titulo: titulo,
             tipo: tipo,
@@ -44,14 +42,17 @@ function EventoCadastro(){
             hora: hora,
             usuario: usuarioEmail,
             visualizacoes: 0,
-            uuid: uuid,
             publico: 1,
             criacao: new Date()
         }
-        foto ? Object.assign(body, {foto: foto.name}): Object.assign(body, {foto: null})
+
         
-        db.collection('eventos').add(body).then(()=>{
-            foto && storage.ref(`imagens/${uuid}`).put(foto);
+
+        foto ? Object.assign(body, {foto: foto.name.split('.').pop()}): Object.assign(body, {foto: null})
+        
+        db.collection('eventos').add(body).then((resultado)=>{
+            console.log(resultado)
+            foto && storage.ref(`imagens/${resultado.id+'.'+foto.name.split('.').pop()}`).put(foto);
             setMsgTipo('sucesso');
             setCarregando(0)
         }).catch(erro => {
