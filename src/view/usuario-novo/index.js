@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate, Navigate } from "react-router-dom";
 import Navbar from '../../components/navbar/'
 import firebase from '../../config/firebase';
 import 'firebase/compat/auth';
@@ -58,25 +59,27 @@ function NovoUsuario(){
 
     return (
         <><Navbar/>
+            {useSelector(state => state.usuarioLogado) > 0 ? <Navigate to="/"/> : null }
+
             <div className="form-cadastro">
                 <form className="text-center form-login mx-auto mt-5">
                     <h1 className="h3 mb-3 text-black fw-bold">Cadastro</h1>
 
                     <div className="form-floating">
                         <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control my-2" id="floatingInput" placeholder="E-mail"/>
-                        <label for="floatingInput">Email</label>
+                        <label htmlFor="floatingInput">Email</label>
                     </div>
 
                     <div className="form-floating">
                         <input onChange={(e) => setSenha(e.target.value)} type="password" className="form-control my-2" id="floatingPassword" placeholder="Senha"/>
-                        <label for="floatingPassword">Senha</label>
+                        <label htmlFor="floatingPassword">Senha</label>
                     </div>
 
 
 
 
                     {
-                        carregando ? <div class="spinner-border text-danger mt-3" role="status"></div>
+                        carregando ? <div className="spinner-border text-danger mt-3" role="status"></div>
                         : <button onClick={cadastrar} type="button" className={"btn btn-lg btn-block mt-3 mb-5 btn-cadastro w-100 "+botao}>Cadastrar</button>
                     }
 

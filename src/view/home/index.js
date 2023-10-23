@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./home.css";
 import firebase from '../../config/firebase'
+import {Link} from 'react-router-dom';
 import 'firebase/compat/firestore';
 import Navbar from '../../components/navbar/'
 import Card from "../../components/card";
@@ -30,9 +31,20 @@ function Home(){
         <Navbar/>
         <div className="p-3">
             <div className="row">
-                {cards.map(item => <Card id={item.id} img={item.id+`.${item.foto}`} titulo={item.titulo} detalhes={item.detalhes} visualizacoes={item.visualizacoes}/>)}
+                {
+                useSelector(state => state.usuarioLogado) > 0 ?
+                <>
+                {cards.map(item => <Card key={item.id} id={item.id} img={item.id+`.${item.foto}`} titulo={item.titulo} detalhes={item.detalhes} visualizacoes={item.visualizacoes}/>)} 
+                </>
+                :
+                <>
+                <h1>Você não está logado! &#128546;</h1>
+                <h4><Link to='/login'>Logue-se</Link> para ver seus cards!</h4>
+                </>
+                }
             </div>
         </div>
+
         </>
     )
 }

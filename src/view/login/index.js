@@ -49,16 +49,16 @@ function Login() {
 
           <div className="form-floating">
             <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control my-2" id="floatingInput" placeholder="E-mail"/>
-            <label for="floatingInput">Email</label>
+            <label htmlFor="floatingInput">Email</label>
           </div>
 
           <div className="form-floating">
             <input onChange={(e) => setSenha(e.target.value)} type="password" className="form-control my-2" id="floatingPassword" placeholder="Senha"/>
-            <label for="floatingPassword">Senha</label>
+            <label htmlFor="floatingPassword">Senha</label>
           </div>
 
           {
-          carregando ? <div className={'row '+spinner}><div class="mx-auto spinner-border text-danger mt-3" role="status"></div></div>
+          carregando ? <div className={'row '+spinner}><div className="mx-auto spinner-border text-danger mt-3" role="status"></div></div>
           : <button onClick={logar} className="btn w-100 btn-login text-white" type="button">Logar</button> 
           }
 

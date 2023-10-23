@@ -11,24 +11,35 @@ function GerarCard({id, img, titulo, detalhes, visualizacoes}){
     
     const storage = firebase.storage();
     const [urlImagem, setUrlImagem] = useState();
+    const [carregando, setCarregando] = useState(1);
 
     useEffect(()=>{
-        if(img.split('.').pop() !== 'null' && img.split('.').pop() === 'jpg' ){
-            storage.ref(`imagens/${img}`).getDownloadURL().then(url => setUrlImagem(url));
+        if(img.split('.').pop() !== 'null' && img.split('.').pop() === 'png' ){
+            storage.ref(`imagens/${img}`).getDownloadURL().then(url => {
+                setUrlImagem(url);
+                setTimeout(()=>{
+                    setCarregando(0);
+                },1000)
+            });
         }
         else{
-            setUrlImagem("https://fakeimg.pl/200x200");
+            setUrlImagem("https://fakeimg.pl/1920x1080");
+            setTimeout(setCarregando(0),2000)
         }// eslint-disable-next-line
     }, []);
     
     return(
 
-        <div class="col-sm-4 col-lg-3 col-xl-2 mb-3 mb-sm-0">
-            <div class="card mb-3">
-                <img src={urlImagem} className="card-img-top img-fluid img-cartao" alt="Imagem do Card"/>
-                <div class="card-body">
-                    <h5 class="card-title">{titulo}</h5>
-                    <p class="card-text">{detalhes}</p>
+        <div className="col-sm-4 col-lg-3 col-xl-2 mb-3 mb-sm-0">
+            <div className="card mb-3">
+                {
+                carregando ? <div className='row'><div className="mx-auto spinner-border text-danger my-5" role="status"></div></div>
+                : <img src={urlImagem} className="card-img-top img-fluid img-cartao" alt="Imagem do Card"/>
+                }
+
+                <div className="card-body">
+                    <h5 className="card-title">{titulo}</h5>
+                    <p className="card-text">{detalhes}</p>
                     <Link to={/detalhescard/ + id} className="btn btn-sm btn-detalhes">+ Detalhes</Link>
                 </div>
             </div>

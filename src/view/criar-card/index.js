@@ -52,7 +52,6 @@ function CriarCard(){
         foto ? Object.assign(body, {foto: foto.name.split('.').pop()}): Object.assign(body, {foto: null})
         
         db.collection('cards').add(body).then((resultado)=>{
-            console.log(resultado)
             if(foto){storage.ref(`imagens/${resultado.id+'.'+foto.name.split('.').pop()}`).put(foto).then(()=>{
                 setMsgTipo('sucesso');
                 setCarregando(0);
@@ -118,7 +117,7 @@ function CriarCard(){
                 </div>
                 <div className="row">
                     {
-                    carregando ? <div class="mx-auto spinner-border text-danger mt-3" role="status"></div>
+                    carregando ? <div className="mx-auto spinner-border text-danger mt-3" role="status"></div>
                     : <button onClick={cadastrar} type="button" className={"btn btn-lg btn-block mt-3 mb-5 btn-cadastro w-100 "+botao}>Criar Card</button>
                     }
                 </div>

@@ -10,11 +10,11 @@ function Navbar(){
             <div className="container-fluid">
                 <span className="navbar-brand text-white fw-bold" href="#">TalkCards</span>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa-solid fa-bars text-white"></i>
+                <i className="fa-solid fa-bars text-white"></i>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
-                        <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
+                        <li  className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
                         {
                                 useSelector(state => state.usuarioLogado) > 0 ?
                             <>

@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import "./usuario-recuperar-senha.css";
-import { Link } from 'react-router-dom';
-
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import Navbar from '../../components/navbar'
-import Logo from '../LOgo.svg'
-
 import firebase from '../../config/firebase';
 import 'firebase/compat/auth';
 
@@ -24,12 +22,13 @@ function UsuarioRecuperarSenha(){
     
     return(
         <>
+        {useSelector(state => state.usuarioLogado) > 0 ? <Navigate to="/"/> : null }
         <Navbar/>
         <form className="text-center form-login mx-auto mt-5">
             <h3 className="mb-3 fw-bold">Recuperar Senha</h3>
             <div className="form-floating">
                 <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control my-2" placeholder="Email"/> 
-                <label for="floatingInput">Email</label>
+                <label htmlFor="floatingInput">Email</label>
             </div>
             <div className="msg my-4 text-center">
                 <span>{msg}</span>    
