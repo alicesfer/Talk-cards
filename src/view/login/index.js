@@ -16,20 +16,21 @@ function Login() {
   const [senha, setSenha] = useState();
   const [msgTipo, setMsgTipo] = useState();
   const [carregando, setCarregando] = useState();
-
+  const [spinner, setSpinner] = useState();
   const dispatch = useDispatch();
 
   function logar(){
     setCarregando(1)
     firebase.auth().signInWithEmailAndPassword(email, senha).then(resultado =>{
-      setMsgTipo('sucesso')
-      setCarregando(0)
+      setSpinner('d-none');
+      setMsgTipo('sucesso');
       setTimeout(() => {
-        dispatch({type: 'LOG_IN', usuarioEmail: email})
-      }, 2000)
+        dispatch({type: 'LOG_IN', usuarioEmail: email});
+        setCarregando(0);
+      }, 2000);
     }).catch(erro =>{
-      setMsgTipo('erro')
-      setCarregando(0)
+      setMsgTipo('erro');
+      setCarregando(0);
     })
 
   }
@@ -57,7 +58,7 @@ function Login() {
           </div>
 
           {
-          carregando ? <div className="row"><div class="mx-auto spinner-border text-danger mt-3" role="status"></div></div>
+          carregando ? <div className={'row '+spinner}><div class="mx-auto spinner-border text-danger mt-3" role="status"></div></div>
           : <button onClick={logar} className="btn w-100 btn-login text-white" type="button">Logar</button> 
           }
 

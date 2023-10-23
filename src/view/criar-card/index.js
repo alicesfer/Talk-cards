@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import "./evento-cadastro.css";
+import { useNavigate, Navigate } from "react-router-dom";
+import "./criar-card.css";
 
 import Navbar from '../../components/navbar'
 
@@ -11,7 +11,7 @@ import 'firebase/compat/firestore';
 
 
 
-function EventoCadastro(){
+function CriarCard(){
 
     const [msgTipo, setMsgTipo] = useState();
     const [titulo, setTitulo] = useState();
@@ -20,16 +20,17 @@ function EventoCadastro(){
     const [data, setData] = useState();
     const [hora, setHora] = useState();
     const [foto, setFoto] = useState();
+    const [botao, setBotao] = useState();
     const [carregando, setCarregando] = useState();
     const storage = firebase.storage();
     const db = firebase.firestore();
     const usuarioEmail = useSelector(state => state.usuarioEmail)
-
+    const navigate = useNavigate();
 
     function cadastrar(){
         if(!titulo || !tipo || !detalhes || !data || !data || !hora){
             setMsgTipo('erro');
-            setCarregando(0)
+            setCarregando(0);
             return;
         }
         setMsgTipo(null);
@@ -50,16 +51,20 @@ function EventoCadastro(){
 
         foto ? Object.assign(body, {foto: foto.name.split('.').pop()}): Object.assign(body, {foto: null})
         
-        db.collection('eventos').add(body).then((resultado)=>{
+        db.collection('cards').add(body).then((resultado)=>{
             console.log(resultado)
             if(foto){storage.ref(`imagens/${resultado.id+'.'+foto.name.split('.').pop()}`).put(foto).then(()=>{
                 setMsgTipo('sucesso');
                 setCarregando(0);
+                setBotao('disabled');
+                setTimeout(()=>{navigate('/')}, 2000);
             })
             }
             else{
                 setMsgTipo('sucesso');
                 setCarregando(0);
+                setBotao('disabled');
+                setTimeout(()=>{navigate('/')}, 2000);
             }
                 
         }).catch(erro => {
@@ -76,7 +81,7 @@ function EventoCadastro(){
         {useSelector(state => state.usuarioLogado) > 0 ? null : <Navigate to="/"/> }
         <div className="col-12 p-3">
             <div className="row text-center">
-                <h3 className="mx-auto fw-bold">Novo Evento</h3>
+                <h3 className="mx-auto fw-bold">Novo Card</h3>
             </div>
             <form>
                 <div className="form-group">
@@ -84,17 +89,17 @@ function EventoCadastro(){
                     <input onChange={(e) => setTitulo(e.target.value)} type="text" className="form-control"/>
                 </div>
                 <div className="form-group">
-                    <label>Tipo do Evento: </label>
+                    <label>Tipo do Card: </label>
                     <select defaultValue={'-- Selecione um tipo --'} onChange={(e) => setTipo(e.target.value)} className="form-control">
                         <option disabled>-- Selecione um tipo --</option>
-                        <option>Festa</option>
-                        <option>Teatro</option>
-                        <option>Show</option>
-                        <option>Evento</option>
+                        <option>Ação</option>
+                        <option>Sei la</option>
+                        <option>Teste</option>
+                        <option>Opcao</option>
                     </select>
                 </div>
                 <div className="form-group">
-                    <label>Descrição do Evento</label>
+                    <label>Descrição do Card</label>
                     <textarea onChange={(e) => setDetalhes(e.target.value)} className="form-control" rows={3}/>
                 </div>
                 <div className="form-group row">
@@ -114,15 +119,15 @@ function EventoCadastro(){
                 <div className="row">
                     {
                     carregando ? <div class="mx-auto spinner-border text-danger mt-3" role="status"></div>
-                    :<button onClick={cadastrar} type="button" className="btn btn-lg btn-block mt-3 mb-5 btn-cadastro w-100">Publicar Evento</button>
+                    : <button onClick={cadastrar} type="button" className={"btn btn-lg btn-block mt-3 mb-5 btn-cadastro w-100 "+botao}>Criar Card</button>
                     }
                 </div>
                 
             </form>
 
             <div className="msg-login text-center">
-            {msgTipo === 'sucesso' && <span><strong>WoW!</strong> Evento publicado! &#128526;</span>}
-            {msgTipo === 'erro' && <span><strong>Ops!</strong> Não foi possível publicar o evento! &#128546;</span>}
+            {msgTipo === 'sucesso' && <span><strong>WoW!</strong> Card criado! &#128526;</span>}
+            {msgTipo === 'erro' && <span><strong>Ops!</strong> Não foi possível criar o card! &#128546;</span>}
           </div>
         </div>
         </>
@@ -130,4 +135,4 @@ function EventoCadastro(){
     )
 }
 
-export default EventoCadastro;
+export default CriarCard;

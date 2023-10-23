@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from '../../components/navbar/'
 import firebase from '../../config/firebase';
 import 'firebase/compat/auth';
@@ -11,7 +12,10 @@ function NovoUsuario(){
     const [senha, setSenha] = useState();
     const [msgTipo, setMsgTipo] = useState();
     const [msg, setMsg] = useState();
+    const [botao, setBotao] = useState();
     const [carregando, setCarregando] = useState();
+
+    const navigate = useNavigate();
 
     function cadastrar(){
 
@@ -26,8 +30,10 @@ function NovoUsuario(){
             return;
         }
         firebase.auth().createUserWithEmailAndPassword(email, senha).then(resultado =>{
+            setBotao('disabled')
             setMsgTipo('sucesso')
             setCarregando(0);
+            setTimeout(()=>{navigate('/login')}, 2000);
         }).catch(erro => {
             setCarregando(0);
             setMsgTipo('erro')
@@ -71,7 +77,7 @@ function NovoUsuario(){
 
                     {
                         carregando ? <div class="spinner-border text-danger mt-3" role="status"></div>
-                        : <button onClick={cadastrar} type="button" className="btn btn-lg btn-block mt-3 mb-5 btn-cadastro w-100">Cadastrar</button>
+                        : <button onClick={cadastrar} type="button" className={"btn btn-lg btn-block mt-3 mb-5 btn-cadastro w-100 "+botao}>Cadastrar</button>
                     }
 
                     <div className="msg-login text-black text-center ">
