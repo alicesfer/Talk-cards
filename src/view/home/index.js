@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 const db = firebase.firestore();
 
 function Home(){
-    
+
     const [cards, setCards] = useState([]);
     let listaCards = [];
     const usuarioEmail = useSelector(state => state.usuarioEmail);
@@ -21,11 +21,12 @@ function Home(){
                 listaCards.push({
                     id: doc.id,
                     ...doc.data()
-                })
-            })
+                });
+            });
             setCards(listaCards);
         });// eslint-disable-next-line
     }, []);
+
     return(
         <>
         <Navbar/>
@@ -44,9 +45,8 @@ function Home(){
                 }
             </div>
         </div>
-
         </>
-    )
-}
+    );
+};
 
 export default Home;

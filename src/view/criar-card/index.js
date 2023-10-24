@@ -2,14 +2,10 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, Navigate } from "react-router-dom";
 import "./criar-card.css";
-
 import Navbar from '../../components/navbar'
-
 import firebase from '../../config/firebase';
 import 'firebase/compat/storage';
 import 'firebase/compat/firestore';
-
-
 
 function CriarCard(){
 
@@ -24,7 +20,7 @@ function CriarCard(){
     const [carregando, setCarregando] = useState();
     const storage = firebase.storage();
     const db = firebase.firestore();
-    const usuarioEmail = useSelector(state => state.usuarioEmail)
+    const usuarioEmail = useSelector(state => state.usuarioEmail);
     const navigate = useNavigate();
 
     function cadastrar(){
@@ -45,35 +41,28 @@ function CriarCard(){
             visualizacoes: 0,
             publico: 1,
             criacao: new Date()
-        }
-
-        
-
-        foto ? Object.assign(body, {foto: foto.name.split('.').pop()}): Object.assign(body, {foto: null})
-        
+        };
+        foto ? Object.assign(body, {foto: foto.name.split('.').pop()}): Object.assign(body, {foto: null});
         db.collection('cards').add(body).then((resultado)=>{
             if(foto){storage.ref(`imagens/${resultado.id+'.'+foto.name.split('.').pop()}`).put(foto).then(()=>{
                 setMsgTipo('sucesso');
                 setCarregando(0);
                 setBotao('disabled');
                 setTimeout(()=>{navigate('/')}, 2000);
-            })
+            });
             }
             else{
                 setMsgTipo('sucesso');
                 setCarregando(0);
                 setBotao('disabled');
                 setTimeout(()=>{navigate('/')}, 2000);
-            }
-                
+            };
         }).catch(erro => {
-            console.log(erro)
             setMsgTipo('erro');
-            setCarregando(0)
+            setCarregando(0);
         });
-    }
-
-
+    };
+    
     return(
         <>
         <Navbar/>
@@ -121,16 +110,13 @@ function CriarCard(){
                     : <button onClick={cadastrar} type="button" className={"btn btn-lg btn-block mt-3 mb-5 btn-cadastro w-100 "+botao}>Criar Card</button>
                     }
                 </div>
-                
             </form>
-
             <div className="msg-login text-center">
             {msgTipo === 'sucesso' && <span><strong>WoW!</strong> Card criado! &#128526;</span>}
             {msgTipo === 'erro' && <span><strong>Ops!</strong> Não foi possível criar o card! &#128546;</span>}
           </div>
         </div>
         </>
-        
     )
 }
 

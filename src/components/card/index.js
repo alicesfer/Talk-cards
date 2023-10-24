@@ -8,7 +8,7 @@ import 'firebase/compat/storage';
 
 
 function GerarCard({id, img, titulo, detalhes, visualizacoes}){
-    
+
     const storage = firebase.storage();
     const [urlImagem, setUrlImagem] = useState();
     const [carregando, setCarregando] = useState(1);
@@ -18,13 +18,13 @@ function GerarCard({id, img, titulo, detalhes, visualizacoes}){
             storage.ref(`imagens/${img}`).getDownloadURL().then(url => {
                 setUrlImagem(url);
                 setTimeout(()=>{
-                    setCarregando(0);
+                setCarregando(0);
                 },1000)
             });
         }
         else{
-            setUrlImagem("https://fakeimg.pl/1920x1080");
-            setTimeout(setCarregando(0),2000)
+            setUrlImagem("https://fakeimg.pl/400");
+            setTimeout(()=>{setCarregando(0)},2000)
         }// eslint-disable-next-line
     }, []);
     
@@ -43,7 +43,7 @@ function GerarCard({id, img, titulo, detalhes, visualizacoes}){
                     <Link to={/detalhescard/ + id} className="btn btn-sm btn-detalhes">+ Detalhes</Link>
                 </div>
             </div>
-        </div>        
+        </div>
     )
 }
 
