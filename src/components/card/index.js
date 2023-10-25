@@ -14,7 +14,7 @@ function GerarCard({id, img, titulo, detalhes, visualizacoes}){
     const [carregando, setCarregando] = useState(1);
 
     useEffect(()=>{
-        if(img.split('.').pop() !== 'null' && img.split('.').pop() === 'png' ){
+        if(img.split('.').pop() !== 'null' && img.split('.').pop() === 'png'){
             storage.ref(`imagens/${img}`).getDownloadURL().then(url => {
                 setUrlImagem(url);
                 setTimeout(()=>{

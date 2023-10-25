@@ -9,7 +9,7 @@ function Navbar(){
     return(
         <nav className="navbar navbar-expand-lg">
             <div className="container-fluid">
-                <Link class="navbar-brand" to="/">
+                <Link className="navbar-brand" to="/">
                     <img src="https://i.ibb.co/48Dnk3z/1697669419320.png" width="40" height="40" alt=""/>
                 </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
