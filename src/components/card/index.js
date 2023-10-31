@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
 import "./card.css";
 import firebase from "../../config/firebase";
 import 'firebase/compat/auth';
 import 'firebase/compat/storage';
 
 
-
-function GerarCard({id, img, titulo, detalhes, visualizacoes}){
+function GerarCard({id, img, titulo, detalhes, visualizacoes, asd}){
 
     const storage = firebase.storage();
     const [urlImagem, setUrlImagem] = useState();
@@ -23,7 +21,7 @@ function GerarCard({id, img, titulo, detalhes, visualizacoes}){
             });
         }
         else{
-            setUrlImagem("https://fakeimg.pl/400");
+            setUrlImagem("https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/imagens%2F6wCStEUf53mVcSF7rqsF.png?alt=media&token=891ce99f-b102-44ea-9ec5-b24026fe3fe3");
             setTimeout(()=>{setCarregando(0)},2000)
         }// eslint-disable-next-line
     }, []);
@@ -36,11 +34,13 @@ function GerarCard({id, img, titulo, detalhes, visualizacoes}){
                 carregando ? <div className='row'><div className="mx-auto spinner-border text-danger my-5" role="status"></div></div>
                 : <img src={urlImagem} className="card-img-top img-fluid img-cartao" alt="Imagem do Card"/>
                 }
-
+                
                 <div className="card-body">
                     <h5 className="card-title">{titulo}</h5>
                     <p className="card-text">{detalhes}</p>
-                    <Link to={/detalhescard/ + id} className="btn btn-sm btn-detalhes">+ Detalhes</Link>
+                    <button type="button" className="btn btn-sm btn-detalhes" data-bs-toggle="modal" data-bs-target="#cardModal">
+                    + Detalhes
+                    </button>
                 </div>
             </div>
         </div>
