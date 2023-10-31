@@ -80,11 +80,12 @@ function CriarCard(){
                     <label>Tipo do Card: </label>
                     <select defaultValue={'-- Selecione um tipo --'} onChange={(e) => setTipo(e.target.value)} className="form-control">
                         <option disabled>-- Selecione um tipo --</option>
-                        <option>Ação</option>
-                        <option>Sei la</option>
-                        <option>Teste</option>
-                        <option>Opcao</option>
+                        <option>Solicitação</option>
+                        <option>Comida</option>
+                        <option>Emergências</option>
+                        <option>Outros</option>
                     </select>
+  
                 </div>
                 <div className="form-group">
                     <label>Descrição do Card</label>
