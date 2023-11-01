@@ -12,7 +12,7 @@ function GerarCard({id, img, titulo, detalhes, visualizacoes, asd}){
     const [carregando, setCarregando] = useState(1);
 
     useEffect(()=>{
-        if(img.split('.').pop() !== 'null' && img.split('.').pop() === 'png'){
+        if(img.split('.').pop() !== 'null' || img.split('.').pop() === 'png' || img.split('.').pop() === 'jpg' || img.split('.').pop() === 'gif' || img.split('.').pop() === 'jpeg'){
             storage.ref(`imagens/${img}`).getDownloadURL().then(url => {
                 setUrlImagem(url);
                 setTimeout(()=>{
