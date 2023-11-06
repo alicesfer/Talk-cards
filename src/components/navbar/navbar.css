@@ -7,7 +7,7 @@
     transition: .3s ease-in;
 }
 .nav-item a:hover{
-    color: #f21657;
+    color: rgb(190, 190, 190);
 }
 
 .navbar-toggler:focus{

@@ -37,7 +37,7 @@ function Login() {
   return (
     <>
     <Navbar/>
-      <div className="login-content d-flex align-items-center my-5 py-5">
+      <div className="login-content d-flex align-items-center my-5 py-lg-5">
         {useSelector(state => state.usuarioLogado) > 0 ? <Navigate to="/"/> : null}
         <form className="form-signin mx-auto">
           <div className="text-center mb-4">

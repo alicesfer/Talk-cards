@@ -18,6 +18,8 @@
 }
 
 .img-cartao{
+    background-color: #F3F3F3;
+    object-fit: contain;
     max-height: 200px;
-    min-width: 100%;
+    min-height: 200px;
 }
