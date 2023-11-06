@@ -1,6 +1,17 @@
-import { createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit'
 import usuarioReducer from './usuarioReducer';
+import { persistReducer, persistStore } from 'redux-persist';
 
-const store = createStore(usuarioReducer);
+import storage from 'redux-persist/lib/storage';
 
-export default store;
+const persistConfig = {
+    key: 'talkcards',
+    storage
+}
+
+const persistedReducer = persistReducer(persistConfig, usuarioReducer);
+
+const store = configureStore({reducer: persistedReducer, middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})});
+const persistor = persistStore(store)
+
+export { store, persistor };

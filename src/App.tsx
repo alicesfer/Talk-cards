@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route , Routes } from 'react-router-dom';
-import store from './store'; 
+import { store, persistor } from './store';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 /*PÁGINAS*/
 import Login from './view/login';
@@ -12,6 +13,7 @@ import CriarCard from './view/criar-card';
 
 const App: React.FC = () => (
     <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
       <Router>
         <Routes>
           <Route path='/' Component={Home}/>
@@ -21,6 +23,7 @@ const App: React.FC = () => (
           <Route path='/criarcard' Component={CriarCard}/>
         </Routes>
       </Router>
+      </PersistGate>
     </Provider>
   );
 
