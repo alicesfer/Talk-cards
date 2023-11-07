@@ -9,3 +9,10 @@
 .accordion-button:not(.collapsed){
     background-color: #b9c7f1;
 }
+
+.userContent{
+    max-width: 1920px;
+}
+.userNotContent{
+    max-width: 1920px;
+}

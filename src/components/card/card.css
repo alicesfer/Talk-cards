@@ -12,14 +12,36 @@
     color: #fff;
 }
 
-.card-text{
-    max-height: 200px;
+.card{
+    display: inline-block;
+    min-width: 258px;
+    max-width: 298px;
+    max-height: 337px;
+    text-align: left!important;
+}
+
+.card-title{
+    text-overflow: ellipsis;
+    white-space: nowrap;
     overflow: hidden;
+    max-height: 24px;
+}
+
+.card-text{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-height: 24px;
 }
 
 .img-cartao{
     background-color: #F3F3F3;
     object-fit: contain;
     max-height: 200px;
+    min-height: 200px;
+}
+
+.spinnerCard{
+    align-items: center;
     min-height: 200px;
 }

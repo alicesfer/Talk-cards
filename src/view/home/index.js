@@ -33,34 +33,36 @@ function Home(){
     return(
         <>
         <Navbar/>
-        <div className="modal fade" id="cardModal" tabIndex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
+        <div className="modal fade" id="cardModal" tabIndex="-1" aria-labelledby="cardModalLabel">
             <div className="modal-dialog">
                 <div className="modal-content">
-                <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="cardModalLabel">
-                    {
-                    modalTitle.length !== 0 ? modalBody
-                    : <>Carregando...</>
-                    }
-                    </h1>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                    {
-                    modalBody.length !== 0 ? modalBody
-                    : <>...</>
-                    }
-                </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary">Save changes</button>
-                </div>
+                    <div className="modal-header">
+                        <h1 className="modal-title fs-5" id="cardModalLabel">
+                        {
+                        modalTitle.length !== 0 ? modalBody
+                        : <>Carregando...</>
+                        }
+                        </h1>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div className="modal-body">
+                        {
+                        modalBody.length !== 0 ? modalBody
+                        : <>...</>
+                        }
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-primary">Save changes</button>
+                    </div>
                 </div>
             </div>
         </div>
-        {
+        <div className="d-flex justify-content-center pb-3">
+            {
             useSelector(state => state.usuarioLogado) > 0 ?
             <>
+            <div className="userContent col-12">
                 <h2 className="p-3 position-relative">Aqui estão seus cards! <span className="fw-normal fs-6">*separados por tipos</span></h2>
                 <div className="accordion" id="accordionPanelsStayOpenExample">
                     <div className="accordion-item">
@@ -70,8 +72,7 @@ function Home(){
                             </button>
                         </h2>
                         <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse">
-                            <div className="accordion-body">
-                                <div className="row">
+                            <div className="accordion-body text-center">
                                     {
                                     cards.filter((a) => a.tipo === 'Comida').length >= 1 ?
                                     cards.filter((a) => a.tipo === 'Comida').map(item => <Card key={item.id} id={item.id} img={item.id+`.${item.foto}`} titulo={item.titulo} detalhes={item.detalhes} visualizacoes={item.visualizacoes}/>)
@@ -81,7 +82,6 @@ function Home(){
                                         <h4><Link to='/criarcard'>Cadastre um card!</Link></h4>
                                     </>
                                     }
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -92,8 +92,7 @@ function Home(){
                             </button>
                         </h2>
                         <div id="panelsStayOpen-collapseThree" className="accordion-collapse collapse">
-                            <div className="accordion-body">
-                                <div className="row">
+                            <div className="accordion-body text-center">
                                     {
                                     cards.filter((a) => a.tipo === 'Emergências').length >= 1 ?
                                     cards.filter((a) => a.tipo === 'Emergências').map(item => <Card key={item.id} id={item.id} img={item.id+`.${item.foto}`} titulo={item.titulo} detalhes={item.detalhes} visualizacoes={item.visualizacoes}/>)
@@ -103,7 +102,6 @@ function Home(){
                                         <h4><Link to='/criarcard'>Cadastre um card!</Link></h4>
                                     </>
                                     }
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -114,8 +112,7 @@ function Home(){
                             </button>
                         </h2>
                         <div id="panelsStayOpen-collapseFour" className="accordion-collapse collapse">
-                            <div className="accordion-body">
-                                <div className="row">
+                            <div className="accordion-body text-center">
                                     {
                                     cards.filter((a) => a.tipo === 'Outros').length >= 1 ?
                                     cards.filter((a) => a.tipo === 'Outros').map(item => <Card key={item.id} id={item.id} img={item.id+`.${item.foto}`} titulo={item.titulo} detalhes={item.detalhes} visualizacoes={item.visualizacoes}/>)
@@ -125,18 +122,19 @@ function Home(){
                                         <h4><Link to='/criarcard'>Cadastre um card!</Link></h4>
                                     </>
                                     }
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </>
             :
-            <div className="p-3">
+            <div className="p-3 userNotContent">
                 <h1>Você não está logado! &#128546;</h1>
                 <h4><Link to='/login'>Logue-se</Link> para ver seus cards!</h4>
             </div>
-        }
+            }
+        </div>
         </>
     );
 };
