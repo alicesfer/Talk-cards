@@ -11,17 +11,17 @@ function UsuarioRecuperarSenha(){
 
     const [email, setEmail] = useState();
     const [carregando, setCarregando] = useState();
-    const [msg, setMsg] = useState();
+    const [msgTipo, setMsgTipo] = useState();
 
     function recuperarSenha(){
-        setMsg(null);
+        setMsgTipo(null);
         setCarregando(1);
         firebase.auth().sendPasswordResetEmail(email).then(resultado =>{
+            setMsgTipo('sucesso')
             setCarregando(0);
-            setMsg('Caso a conta exista, foi enviado um link ao seu e-mail para você redefinir sua senha! 😉');
         }).catch(erro => {
+            setMsgTipo('erro')
             setCarregando(0);
-            setMsg('Verifique se o e-mail está correto.');
         });
     };
     
@@ -39,12 +39,14 @@ function UsuarioRecuperarSenha(){
                 <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control my-2" placeholder="Email"/> 
                 <label htmlFor="floatingInput">Email</label>
             </div>
-            <div className="text-center my-3">
-                <span>{msg}</span>
-            </div>{
+            {
             carregando ? <div className="mx-auto spinner-border text-danger mt-3" role="status"></div>
             : <button type="button" className="btn btn-lg btn-block mt-3 btn-login w-100 text-white" onClick={recuperarSenha}>Enviar</button>
             }
+            <div className="msg-login text-center my-3">
+              {msgTipo === 'sucesso' && <span><strong>Legal!</strong> Caso exista uma conta associada a este e-mail, foi enviado um link para mudança de senha! &#128526;</span>}
+              {msgTipo === 'erro' && <span><strong>Ops!</strong> Verifique se o e-mail está correto!</span>}
+            </div>
             </form>
             </div>
         </>
