@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 import Navbar from '../../components/navbar'
 import firebase from '../../config/firebase';
 import 'firebase/compat/auth';
+import Logo from '../LOgo.svg'
 
 function UsuarioRecuperarSenha(){
 
@@ -13,7 +14,7 @@ function UsuarioRecuperarSenha(){
 
     function recuperarSenha(){
         firebase.auth().sendPasswordResetEmail(email).then(resultado =>{
-            setMsg('Enviamos um link ao seu e-mail para você redefinir sua senha! 😉');
+            setMsg('Caso a conta exista, foi enviado um link ao seu e-mail para você redefinir sua senha! 😉');
         }).catch(erro => {
             setMsg('Verifique se o e-mail está correto.');
         });
@@ -23,8 +24,9 @@ function UsuarioRecuperarSenha(){
         <>
         {useSelector(state => state.usuarioLogado) > 0 ? <Navigate to="/"/> : null}
         <Navbar/>
-        <form className="text-center form-login mx-auto mt-5">
-            <h3 className="mb-3 fw-bold">Recuperar Senha</h3>
+        <form className="text-center form-login mx-auto mt-5" onSubmit={e => e.preventDefault()} >
+            <img className="mb-4" src={Logo} alt="" width="150" height="150"/>
+            <h3 className="mb-3 fw-bold">Recuperar senha</h3>
             <div className="form-floating">
                 <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control my-2" placeholder="Email"/> 
                 <label htmlFor="floatingInput">Email</label>
@@ -32,8 +34,10 @@ function UsuarioRecuperarSenha(){
             <div className="msg my-4 text-center">
                 <span>{msg}</span>
             </div>
-            <input value="Recuperr Senha" onClick={recuperarSenha} type="submit" className="btn w-100 btn-lg btn-block btn-enviar"/>
-        </form>
+            <button type="button" className="btn btn-detalhes w-100" onClick={recuperarSenha}>
+                Enviar
+            </button>
+            </form>
         </>
     );
 };
