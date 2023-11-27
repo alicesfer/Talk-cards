@@ -1,41 +1,26 @@
 {
   "name": "talkcards",
+  "homepage": "https://alicesfer.github.io/talkcards",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.7",
+    "@reduxjs/toolkit": "^1.8.2",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.1",
-    "@types/node": "^17.0.36",
-    "@types/react": "^18.0.9",
-    "@types/react-dom": "^18.0.5",
-    "@types/react-router-dom": "^5.3.3",
-    "firebase": "^10.4.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "firebase": "^10.6.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "react-redux": "^8.1.3",
-    "react-router-dom": "^6.16.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
-    "typescript": "^4.7.2",
-    "web-vitals": "^2.1.4",
-    "workbox-background-sync": "^6.5.3",
-    "workbox-broadcast-update": "^6.5.3",
-    "workbox-cacheable-response": "^6.5.3",
-    "workbox-core": "^6.5.3",
-    "workbox-expiration": "^6.5.3",
-    "workbox-google-analytics": "^6.5.3",
-    "workbox-navigation-preload": "^6.5.3",
-    "workbox-precaching": "^6.5.3",
-    "workbox-range-requests": "^6.5.3",
-    "workbox-routing": "^6.5.3",
-    "workbox-strategies": "^6.5.3",
-    "workbox-streams": "^6.5.3"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -58,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.0.0"
   }
 }

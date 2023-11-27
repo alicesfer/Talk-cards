@@ -27,7 +27,7 @@ function Navbar(){
                     <ul className="navbar-nav d-flex">
                         {
                         useSelector(state => state.usuarioLogado) > 0 ?<>
-                        <li className="nav-item"><Link className="nav-link pe-3" onClick={() => {window.location.reload();dispatch({type: 'LOG_OUT'});}}>Sair</Link></li>
+                        <li className="nav-item nav-link pe-3 logout" onClick={() => {dispatch({type: 'LOG_OUT'});}}>Sair</li>
                         </>:<>
                         <li className="nav-item"><Link className="nav-link pe-3" to="/novousuario">Cadastrar</Link></li>
                         <li className="nav-item"><Link className="nav-link pe-3" to="/login">Login</Link></li>

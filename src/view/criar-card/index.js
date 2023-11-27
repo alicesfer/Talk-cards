@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, Link } from "react-router-dom";
 import "./criar-card.css";
 import Navbar from '../../components/navbar'
 import firebase from '../../config/firebase';
@@ -21,6 +21,22 @@ function CriarCard(){
     const usuarioEmail = useSelector(state => state.usuarioEmail);
     const navigate = useNavigate();
 
+    function success(){
+        setMsgTipo('sucesso');
+        setCarregando(0);
+        setBotao('disabled');
+        setTimeout(()=>{navigate('/')}, 2000);
+    }
+
+    function isImage(extension){
+        if(extension === 'jpg' || extension === 'png' || extension === 'jpeg' || extension === 'gif' || extension === 'svg' || extension === 'webp'){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     function cadastrar(){
         if(!titulo || !tipo || !detalhes){
             setMsgTipo('erro');
@@ -32,28 +48,36 @@ function CriarCard(){
         const body = {
             titulo: titulo,
             tipo: tipo,
-            detalhes: detalhes,
             usuario: usuarioEmail,
-            visualizacoes: 0,
-            publico: 1,
+            descricao: detalhes,
             criacao: new Date()
         };
-        foto ? Object.assign(body, {foto: foto.name.split('.').pop()}): Object.assign(body, {foto: null});
-        db.collection('cards').add(body).then((resultado)=>{
-            if(foto){storage.ref(`imagens/${resultado.id+'.'+foto.name.split('.').pop()}`).put(foto).then(()=>{
-                setMsgTipo('sucesso');
-                setCarregando(0);
-                setBotao('disabled');
-                setTimeout(()=>{navigate('/')}, 2000);
-            });
+        if(foto){
+            const nomefoto = foto.name.split('.').pop().toLowerCase()
+            if(isImage(nomefoto) === true){
+                Object.assign(body, {
+                    foto: foto.name.split('.').pop()
+                })
             }
             else{
-                setMsgTipo('sucesso');
-                setCarregando(0);
-                setBotao('disabled');
-                setTimeout(()=>{navigate('/')}, 2000);
-            };
+                Object.assign(body, {
+                    foto: "https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2F1697669890197.png?alt=media"
+                });
+            }
+        }
+        else{Object.assign(body, {foto: "https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2F1697669890197.png?alt=media"});}
+        db.collection('cards').add(body).then((resultado)=>{
+            if(foto){
+                const nomefoto = foto.name.split('.').pop().toLowerCase()
+                if(isImage(nomefoto) === true){
+                    db.collection("cards").doc(resultado.id).update({foto: `https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/imagens%2F${resultado.id+'.'+nomefoto}?alt=media`});
+                    storage.ref(`imagens/${resultado.id+'.'+nomefoto}`).put(foto).then(()=>(success()));
+                }
+                else(success());
+            }
+            else(success());
         }).catch(erro => {
+            console.log(erro)
             setMsgTipo('erro');
             setCarregando(0);
         });
@@ -65,42 +89,45 @@ function CriarCard(){
         {useSelector(state => state.usuarioLogado) > 0 ? null : <Navigate to="/"/> }
         <div className="col-12 p-3">
             <div className="row text-center">
-                <h3 className="mx-auto fw-bold">Novo Card</h3>
+                <h3 className="mx-auto fw-bold">Novo card</h3>
             </div>
             <form>
                 <div className="form-group">
-                    <label>Título: </label>
-                    <input onChange={(e) => setTitulo(e.target.value)} type="text" className="form-control"/>
+                    <label htmlFor="tituloInput">Título: </label>
+                    <input id="tituloInput" onChange={(e) => setTitulo(e.target.value)} type="text" className="form-control"/>
                 </div>
                 <div className="form-group">
-                    <label>Tipo do Card: </label>
-                    <select defaultValue={'-- Selecione um tipo --'} onChange={(e) => setTipo(e.target.value)} className="form-control">
+                    <label htmlFor="tipoSelect">Tipo do card: </label>
+                    <select id="tipoSelect" defaultValue={'-- Selecione um tipo --'} onChange={(e) => setTipo(e.target.value)} className="form-control">
                         <option disabled>-- Selecione um tipo --</option>
                         <option>Comida</option>
                         <option>Emergências</option>
                         <option>Outros</option>
                     </select>
-  
                 </div>
                 <div className="form-group">
-                    <label>Descrição do Card</label>
-                    <textarea onChange={(e) => setDetalhes(e.target.value)} className="form-control" rows={3}/>
+                    <label htmlFor="descricaoTextArea">Descrição do card</label>
+                    <textarea className="form-control" onChange={(e) => setDetalhes(e.target.value)} id="descricaoTextArea" rows="3"/>
                 </div>
                 <div className="form-group">
-                    <label>Upload da Foto:</label>
-                    <input onChange={(e) => setFoto(e.target.files[0])} type="file" className="form-control"/>
+                    <label htmlFor="fotoInput">Upload da foto:</label>
+                    <input id="fotoInput" onChange={(e) => setFoto(e.target.files[0])} type="file" accept="image/*" className="form-control"/>
                 </div>
                 <div className="row">
                     {
                     carregando ? <div className="mx-auto spinner-border text-danger mt-3" role="status"></div>
-                    : <button onClick={cadastrar} type="button" className={"btn btn-lg btn-block mt-3 mb-5 btn-cadastro w-100 "+botao}>Criar Card</button>
+                    : <button onClick={cadastrar} type="button" className={"btn btn-lg btn-block my-3 btn-criarCard text-white w-100 "+botao}>Criar card</button>
                     }
                 </div>
             </form>
             <div className="msg-login text-center">
-            {msgTipo === 'sucesso' && <span><strong>WoW!</strong> Card criado! &#128526;</span>}
-            {msgTipo === 'erro' && <span><strong>Ops!</strong> Não foi possível criar o card! &#128546;</span>}
-          </div>
+                {msgTipo === 'sucesso' && <span><strong>WoW!</strong> Card criado! &#128526;</span>}
+                {msgTipo === 'erro' && <span><strong>Ops!</strong> Não foi possível criar o card! &#128546;</span>}
+            </div>
+            <div className="text-center pt-5">
+                <h3>Está sem ideias?</h3>
+                <h4><Link to='/cardsref'>Veja alguns cards pré-prontos!</Link></h4>
+            </div>
         </div>
         </>
     )

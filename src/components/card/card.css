@@ -8,40 +8,40 @@
     color: #fff;
 }
 .btn-detalhes:hover{
-    background-color: #f21667;
+    background-color: rgb(130, 106, 216);
     color: #fff;
 }
 
-.card{
+.btn-detalhes:active:hover{
+    background-color: #614ea6;
+    color: #fff;
+}
+.btn-detalhes:active:focus-within{
+    background-color: #614ea6;
+    color: #fff;
+}
+
+.card-home{
     display: inline-block;
-    min-width: 258px;
-    max-width: 298px;
-    max-height: 337px;
+    width: 258px;
+    height: 304px;
     text-align: left!important;
 }
 
-.card-title{
+.card-title-home{
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-height: 24px;
-}
-
-.card-text{
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    max-height: 24px;
+    height: 24px;
 }
 
 .img-cartao{
     background-color: #F3F3F3;
     object-fit: contain;
-    max-height: 200px;
-    min-height: 200px;
+    height: 200px;
 }
 
 .spinnerCard{
     align-items: center;
-    min-height: 200px;
+    height: 200px;
 }

@@ -10,6 +10,15 @@
     color: rgb(190, 190, 190);
 }
 
+.navbar-nav .logout{
+    color: #fff;
+    transition: .3s ease-in;
+}
+.navbar-nav .logout:hover{
+    color: rgb(190, 190, 190);
+    cursor: pointer;
+}
+
 .navbar-toggler:focus{
     box-shadow: 0 0 0 1px;
 }
