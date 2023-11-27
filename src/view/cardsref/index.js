@@ -25,7 +25,7 @@ function CardsRef(){
         setMsgTipo('sucesso');
         setCarregando(0);
         setBotao('disabled');
-        setTimeout(()=>{window.location.href='/talkcards/'}, 2000);
+        setTimeout(()=>{window.location.href='/Talk-cards/'}, 2000);
     }
 
     const updateModal = (tipo, id)=>{

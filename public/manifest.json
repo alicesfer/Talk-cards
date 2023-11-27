@@ -21,8 +21,8 @@
   "display": "standalone",
   "dir": "auto",
   "lang": "pt-BR",
-  "start_url": "https://alicesfer.github.io/talkcards/",
-  "scope": "https://alicesfer.github.io/talkcards/",
+  "start_url": "https://alicesfer.github.io/Talk-cards/",
+  "scope": "https://alicesfer.github.io/Talk-cards/",
   "description": "Comunicação é a chave para a felicidade",
-  "id": "https://alicesfer.github.io/talkcards/"
+  "id": "https://alicesfer.github.io/Talk-cards/"
 }

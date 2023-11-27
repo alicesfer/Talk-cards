@@ -16,7 +16,7 @@ function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter basename="/talkcards">
+        <BrowserRouter basename="/Talk-cards">
           <Routes>
             <Route exact path='/' element={<Home />}/>
             <Route path='/novousuario' element={<NovoUsuario/>}/>
