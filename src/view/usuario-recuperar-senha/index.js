@@ -29,19 +29,21 @@ function UsuarioRecuperarSenha(){
         <>
         {useSelector(state => state.usuarioLogado) > 0 ? <Navigate to="/"/> : null}
         <Navbar/>
-        <div className="align-items-center my-2 py-lg-5">
+        <div className="d-flex align-items-center my-2 py-lg-5">
         <form className="text-center form-login mx-auto" onSubmit={e => e.preventDefault()} >
+            <div className="text-center mb-4">
             <img className="mb-4" src={Logo} alt="" width="150" height="150"/>
-            <h3 className="mb-3 fw-bold">Recuperar senha</h3>
+            <h1 className="h3 mb-3 fw-normal fw-bold">Recuperar senha</h1>
+          </div>
             <div className="form-floating">
                 <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control my-2" placeholder="Email"/> 
                 <label htmlFor="floatingInput">Email</label>
             </div>
-            <div className="msg my-4 text-center">
+            <div className="text-center my-3">
                 <span>{msg}</span>
             </div>{
             carregando ? <div className="mx-auto spinner-border text-danger mt-3" role="status"></div>
-            : <button type="button" className="btn btn-detalhes w-100" onClick={recuperarSenha}>Enviar</button>
+            : <button type="button" className="btn btn-lg btn-block mt-3 btn-login w-100 text-white" onClick={recuperarSenha}>Enviar</button>
             }
             </form>
             </div>
