@@ -72,9 +72,9 @@ function Login() {
             {msgTipo === 'erro' && <span><strong>Ops!</strong> {msg} &#128546;</span>}
           </div>
           <div className="opcoes-login mt-3 text-center">
-            <Link to="/usuariorecuperarsenha" className="mx-2">Recuperar Senha</Link>
+            <Link to="/usuariorecuperarsenha" className="mx-2">Recuperar senha</Link>
             <span>&#9733;</span>
-            <Link to="/novousuario" className="mx-2">Quero Cadastrar</Link>
+            <Link to="/novousuario" className="mx-2">Quero cadastrar</Link>
           </div>
         </form>
       </div>

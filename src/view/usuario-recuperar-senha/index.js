@@ -10,12 +10,17 @@ import Logo from '../LOgo.svg'
 function UsuarioRecuperarSenha(){
 
     const [email, setEmail] = useState();
+    const [carregando, setCarregando] = useState();
     const [msg, setMsg] = useState();
 
     function recuperarSenha(){
+        setMsg(null);
+        setCarregando(1);
         firebase.auth().sendPasswordResetEmail(email).then(resultado =>{
+            setCarregando(0);
             setMsg('Caso a conta exista, foi enviado um link ao seu e-mail para você redefinir sua senha! 😉');
         }).catch(erro => {
+            setCarregando(0);
             setMsg('Verifique se o e-mail está correto.');
         });
     };
@@ -24,7 +29,8 @@ function UsuarioRecuperarSenha(){
         <>
         {useSelector(state => state.usuarioLogado) > 0 ? <Navigate to="/"/> : null}
         <Navbar/>
-        <form className="text-center form-login mx-auto mt-5" onSubmit={e => e.preventDefault()} >
+        <div className="align-items-center my-2 py-lg-5">
+        <form className="text-center form-login mx-auto" onSubmit={e => e.preventDefault()} >
             <img className="mb-4" src={Logo} alt="" width="150" height="150"/>
             <h3 className="mb-3 fw-bold">Recuperar senha</h3>
             <div className="form-floating">
@@ -33,11 +39,12 @@ function UsuarioRecuperarSenha(){
             </div>
             <div className="msg my-4 text-center">
                 <span>{msg}</span>
-            </div>
-            <button type="button" className="btn btn-detalhes w-100" onClick={recuperarSenha}>
-                Enviar
-            </button>
+            </div>{
+            carregando ? <div className="mx-auto spinner-border text-danger mt-3" role="status"></div>
+            : <button type="button" className="btn btn-detalhes w-100" onClick={recuperarSenha}>Enviar</button>
+            }
             </form>
+            </div>
         </>
     );
 };
