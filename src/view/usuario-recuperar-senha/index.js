@@ -17,10 +17,10 @@ function UsuarioRecuperarSenha(){
         setMsgTipo(null);
         setCarregando(1);
         firebase.auth().sendPasswordResetEmail(email).then(resultado =>{
-            setMsgTipo('sucesso')
+            setMsgTipo('sucesso');
             setCarregando(0);
         }).catch(erro => {
-            setMsgTipo('erro')
+            setMsgTipo('erro');
             setCarregando(0);
         });
     };

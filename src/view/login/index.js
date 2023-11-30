@@ -40,7 +40,7 @@ function Login() {
       }, 2000);
     }).catch(erro =>{
       setMsgTipo('erro');
-      setMsg('Verifique se o usuário ou a senha estão corretos!')
+      setMsg('Verifique se o usuário ou a senha estão corretos!');
       setCarregando(0);
     });
   };

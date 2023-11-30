@@ -24,7 +24,6 @@ function CardsRef(){
     function success(){
         setMsgTipo('sucesso');
         setCarregando(0);
-        setBotao('disabled');
         setTimeout(()=>{window.location.href='/Talk-cards/'}, 2000);
     }
 
@@ -34,7 +33,9 @@ function CardsRef(){
     }
 
     function cadastrar(){
+        setBotao('disabled');
         if(!titulo || !tipo || !detalhes){
+            setBotao('');
             setMsgTipo('erro');
             setCarregando(0);
             return;
@@ -50,7 +51,7 @@ function CardsRef(){
         };
         Object.assign(body, {foto: foto})
             db.collection('cards').add(body).then((resultado)=>{success()}).catch(erro => {
-                console.log(erro)
+                setBotao('');
                 setMsgTipo('erro');
                 setCarregando(0);
             });
@@ -99,7 +100,7 @@ function CardsRef(){
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button onClick={cadastrar} type="button" className={"btn btn-primary "+botao} >Criar card</button>
+                        <button onClick={cadastrar} type="button" className={"btn btn-detalhes "+botao} >Criar card</button>
                     </div>
                 </div>
             </div>

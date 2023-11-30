@@ -13,8 +13,11 @@ function Home(){
     
     const [cards, setCards] = useState([]);
     const [modalBody, setModalBody] = useState([]);
+    const [carregando, setCarregando] = useState();
+    const [msg, setMsg] = useState();
     const [modalTitle, setModalTitle] = useState([]);
     const [currentModalId, setCurrentModalId] = useState([]);
+
     const updateModal = (title, description, imgsrc, id)=>{
         setModalTitle(title);
         setCurrentModalId(id);
@@ -35,9 +38,12 @@ function Home(){
     
 
     const deleteCard = async(id)=>{
-        if (window.confirm("Você tem certeza que quer apagar esse card?\nEssa ação é irreversível.")){
-            await db.collection('cards').doc(id).delete().then(()=>{window.location.reload(false)}).catch((error) => {console.log(error)});
-        }
+        setMsg('Excluindo card...');
+        setCarregando(1);
+        await db.collection('cards').doc(id).delete().then(()=>{
+            setMsg('Card excluído com sucesso!');
+            setTimeout(()=>{window.location.reload()}, 2000);
+        }).catch((error) => {console.log(error)});
     }
 
     useEffect(() => {
@@ -74,9 +80,44 @@ function Home(){
                         }
                     </div>
                     <div className="modal-footer justify-content-between">
-                        <button type="submit" className="btn btn-danger" onClick={()=>{deleteCard(currentModalId)}}>Apagar card</button>
+                        <button type="button" className="btn btn-danger" data-bs-target="#modalExcluir" data-bs-toggle="modal">Excluir card</button>
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div className="modal fade" id="modalExcluir" aria-hidden="true" aria-labelledby="modalExcluirLabel" tabIndex="-1">
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="modalExcluirLabel">
+                        {carregando ? <>{msg}</>
+                        : <>Excluir card</>
+                        }
+                        </h5>
+                        {carregando ? null
+                        : <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        }
+                    </div>
+                    <div className="modal-body text-center">
+
+                        {carregando ? <> {msg === "Card excluído com sucesso!" ? null
+                        : <div className="mx-auto spinner-border text-danger" role="status"></div>}
+                            
+                        </>
+                        : <>Você tem certeza que quer excluir o card "{modalTitle}"?<br/>Essa ação é irreversível.</>
+                        }
+                        
+                        
+                    </div>
+                    {carregando ? null
+                    :
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-bs-target="#cardModal" data-bs-toggle="modal" data-bs-dismiss="modal">Voltar</button>
+                        <button type="submit" className="btn btn-danger" onClick={()=>{deleteCard(currentModalId)}}>Excluir card</button>
+                    </div>
+                    }
+
                 </div>
             </div>
         </div>

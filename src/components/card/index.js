@@ -9,10 +9,10 @@ function GerarCard({id, img, titulo, descricao, props, typeButton, tipo}){
     const [carregando, setCarregando] = useState(1);
 
     useEffect(()=>{
-        setUrlImagem(img)
+        setUrlImagem(img);
         setTimeout(()=>{
         setCarregando(0);
-        },2000)
+        },2000);
     }// eslint-disable-next-line
     , []);
     
