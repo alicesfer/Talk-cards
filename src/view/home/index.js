@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 const db = firebase.firestore();
 
 function Home(){
-    
+
     const [cards, setCards] = useState([]);
     const [modalBody, setModalBody] = useState([]);
     const [carregando, setCarregando] = useState();
@@ -22,20 +22,15 @@ function Home(){
         setModalTitle(title);
         setCurrentModalId(id);
         setModalBody(<>
-        {description?<>
-            <div className="card-body w-100 border-bottom">
-                <p className="card-text">{description}</p>
-            </div>
-        </>
-        :null
-        }
+        <div className="card-body w-100 border-bottom">
+            <p className="card-text">{description}</p>
+        </div>
         <img src={imgsrc} className="img-fluid img-Modal" alt={title}/>
         </>
         );
     }
     let listaCards = [];
     const usuarioEmail = useSelector(state => state.usuarioEmail);
-    
 
     const deleteCard = async(id)=>{
         setMsg('Excluindo card...');
@@ -55,8 +50,26 @@ function Home(){
                 });
             });
             setCards(listaCards);
+            console.log(cards)
         });// eslint-disable-next-line
     }, []);
+
+    var filter = (filter) => {
+        const cards = document.getElementsByClassName("card");
+        for (let i = 0; i < cards.length; i++) {
+            let tipo = cards[i].querySelector(".card");
+            console.log(cards[i].getAttribute('category'))
+                // cards[i].classList.remove("d-none")
+                // cards[i].classList.add("d-none")
+        }
+    }
+    
+    var clearAll = () => {
+        const cards = document.getElementsByClassName("card");
+        for (var i = 0; i < cards.length; i++) {
+            cards[i].classList.remove("d-none")
+        }
+    }
 
     return(
         <>
@@ -124,73 +137,32 @@ function Home(){
         <div className="d-flex justify-content-center pb-3">
             {
             useSelector(state => state.usuarioLogado) > 0 ?
-            <>
-            <div className="userContent col-12">
-                <h2 className="p-3 position-relative">Aqui estão seus cards! <span className="fw-normal fs-6">*separados por tipos</span></h2>
-                <div className="accordion" id="accordionPanelsStayOpenExample">
-                    <div className="accordion-item">
-                        <h2 className="accordion-header">
-                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false">
-                                Comida <span className="ms-1 badge">{cards.filter((a) => a.tipo === 'Comida').length}</span>
-                            </button>
-                        </h2>
-                        <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse">
-                            <div className="accordion-body text-center">
-                                    {
-                                    cards.filter((a) => a.tipo === 'Comida').length >= 1 ?
-                                    cards.filter((a) => a.tipo === 'Comida').map(item => <Card key={item.id} id={item.id} img={item.foto} titulo={item.titulo} descricao={item.descricao} props={updateModal} typeButton="vercard"/>)
-                                    :
-                                    <>
-                                        <h3>Você não possui ainda nenhum card nessa categoria! &#128546;</h3>
-                                        <h4><Link to='/criarcard'>Cadastre um card!</Link></h4>
-                                    </>
-                                    }
-                            </div>
-                        </div>
-                    </div>
-                    <div className="accordion-item">
-                        <h2 className="accordion-header">
-                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                                Emergências <span className="ms-1 badge">{cards.filter((a) => a.tipo === 'Emergências').length}</span>
-                            </button>
-                        </h2>
-                        <div id="panelsStayOpen-collapseThree" className="accordion-collapse collapse">
-                            <div className="accordion-body text-center">
-                                    {
-                                    cards.filter((a) => a.tipo === 'Emergências').length >= 1 ?
-                                    cards.filter((a) => a.tipo === 'Emergências').map(item => <Card key={item.id} id={item.id} img={item.foto} titulo={item.titulo} descricao={item.descricao} props={updateModal} typeButton="vercard"/>)
-                                    :
-                                    <>
-                                        <h3>Você não possui ainda nenhum card nessa categoria! &#128546;</h3>
-                                        <h4><Link to='/criarcard'>Cadastre um card!</Link></h4>
-                                    </>
-                                    }
-                            </div>
-                        </div>
-                    </div>
-                    <div className="accordion-item">
-                        <h2 className="accordion-header">
-                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-                                Outros <span className="ms-1 badge">{cards.filter((a) => a.tipo === 'Outros').length}</span>
-                            </button>
-                        </h2>
-                        <div id="panelsStayOpen-collapseFour" className="accordion-collapse collapse">
-                            <div className="accordion-body text-center">
-                                    {
-                                    cards.filter((a) => a.tipo === 'Outros').length >= 1 ?
-                                    cards.filter((a) => a.tipo === 'Outros').map(item => <Card key={item.id} id={item.id} img={item.foto} titulo={item.titulo} descricao={item.descricao} props={updateModal} typeButton="vercard"/>)
-                                    :
-                                    <>
-                                        <h3>Você não possui ainda nenhum card nessa categoria! &#128546;</h3>
-                                        <h4><Link to='/criarcard'>Cadastre um card!</Link></h4>
-                                    </>
-                                    }
-                            </div>
-                        </div>
-                    </div>
+            
+            <div className="userContent col-12 text-center">
+            {
+            cards.length < 1 ? <>
+            <h3 className="mt-4">Você não possui ainda nenhum card! &#128546;</h3>
+            <h4><Link to='/criarcard'>Cadastre um card!</Link></h4>
+                </>
+                : 
+                <>
+                <h2 className="pt-3 position-relative">Aqui estão seus cards!</h2>
+
+                <div className="buttons">
+                <h3>Filtrar por tipo</h3>
+                    <button className="btn btn-detalhes m-1" onClick={filter('Comida')}>Comida</button>
+                    <button className="btn btn-detalhes m-1" onClick={filter('Emergências')}>Emergências</button>
+                    <button className="btn btn-detalhes m-1" onClick={filter('Outros')}>Outros</button>
+                    <button className="btn btn-detalhes m-1" onClick={()=>{clearAll()}}>Limpar</button>
                 </div>
+
+                {cards.map(item => <Card key={item.id} id={item.id} img={item.foto} titulo={item.titulo} descricao={item.descricao} props={updateModal} tipo={item.tipo} typeButton="vercard"/>)}
+                <h4 className="mt-3"><Link to='/criarcard'>Cadastre um card!</Link></h4>
+                </>
+                
+                }
+ 
             </div>
-            </>
             :
             <div className="p-3 userNotContent">
                 <h1>Você não está logado! &#128546;</h1>

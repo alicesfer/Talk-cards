@@ -4,9 +4,8 @@ import { store, persistor } from './store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-
 import Login from './view/login';
-import NovoUsuario from './view/usuario-novo';
+import NovoUsuario from './view/usuario-novo/';
 import Home from './view/home';
 import UsuarioRecuperarSenha from './view/usuario-recuperar-senha';
 import CriarCard from './view/criar-card';

@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 import Navbar from '../../components/navbar'
 import firebase from '../../config/firebase';
 import 'firebase/compat/auth';
-import Logo from '../LOgo.svg'
+import Logo from '../Logo.svg'
 
 function UsuarioRecuperarSenha(){
 
@@ -36,8 +36,8 @@ function UsuarioRecuperarSenha(){
             <h1 className="h3 mb-3 fw-normal fw-bold">Recuperar senha</h1>
           </div>
             <div className="form-floating">
-                <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control my-2" placeholder="Email"/> 
-                <label htmlFor="floatingInput">Email</label>
+                <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control my-2" placeholder="E-mail"/> 
+                <label htmlFor="floatingInput">E-mail</label>
             </div>
             {
             carregando ? <div className="mx-auto spinner-border text-danger mt-3" role="status"></div>

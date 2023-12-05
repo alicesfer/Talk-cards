@@ -4,7 +4,6 @@ import { Navigate} from "react-router-dom";
 import Navbar from "../../components/navbar";
 import Card from "../../components/card";
 import firebase from '../../config/firebase';
-import "./cardsref.css";
 import 'firebase/compat/storage';
 import 'firebase/compat/firestore';
 

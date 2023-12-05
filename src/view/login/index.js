@@ -3,7 +3,7 @@ import "./login.css";
 import { Link, Navigate } from 'react-router-dom';
 
 import Navbar from '../../components/navbar'
-import Logo from '../LOgo.svg'
+import Logo from '../Logo.svg'
 
 import firebase from '../../config/firebase';
 import 'firebase/compat/auth';
@@ -23,7 +23,7 @@ function Login() {
   function logar(){
     setCarregando(1);
     setMsgTipo(null);
-    
+
     if(!email || !senha){
       setCarregando(0);
       setMsgTipo('erro');
@@ -57,7 +57,7 @@ function Login() {
           </div>
           <div className="form-floating">
             <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control my-2" id="floatingInput" placeholder="E-mail"/>
-            <label htmlFor="floatingInput">Email</label>
+            <label htmlFor="floatingInput">E-mail</label>
           </div>
           <div className="form-floating">
             <input onChange={(e) => setSenha(e.target.value)} type="password" className="form-control my-2" id="floatingPassword" placeholder="Senha"/>
