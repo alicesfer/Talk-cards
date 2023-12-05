@@ -17,7 +17,7 @@ function GerarCard({id, img, titulo, descricao, props, typeButton, tipo}){
     , []);
     
     return(
-        <div className="card card-home m-2">
+        <div className="card card-home m-2" category={tipo}>
             {
             carregando ? <div className='row spinnerCard'><div className="mx-auto spinner-border text-danger my-5" role="status"></div></div>
             : <img src={urlImagem} className="card-img-top img-fluid img-cartao" alt="Imagem do Card" id={id}/>

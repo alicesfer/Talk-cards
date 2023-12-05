@@ -54,17 +54,20 @@ function Home(){
         });// eslint-disable-next-line
     }, []);
 
-    var filter = (filter) => {
-        const cards = document.getElementsByClassName("card");
+    var filtrar = (categoria) => {
+        const cards = document.querySelector('.userContent').getElementsByClassName("card");
         for (let i = 0; i < cards.length; i++) {
-            let tipo = cards[i].querySelector(".card");
-            console.log(cards[i].getAttribute('category'))
-                // cards[i].classList.remove("d-none")
-                // cards[i].classList.add("d-none")
+            let tipo = cards[i].getAttribute('category');
+            if(tipo === categoria){
+                cards[i].classList.remove("d-none")
+            }
+            else{
+                cards[i].classList.add("d-none")
+            }
         }
     }
     
-    var clearAll = () => {
+    var limparFiltro = () => {
         const cards = document.getElementsByClassName("card");
         for (var i = 0; i < cards.length; i++) {
             cards[i].classList.remove("d-none")
@@ -150,10 +153,10 @@ function Home(){
 
                 <div className="buttons">
                 <h3>Filtrar por tipo</h3>
-                    <button className="btn btn-detalhes m-1" onClick={filter('Comida')}>Comida</button>
-                    <button className="btn btn-detalhes m-1" onClick={filter('Emergências')}>Emergências</button>
-                    <button className="btn btn-detalhes m-1" onClick={filter('Outros')}>Outros</button>
-                    <button className="btn btn-detalhes m-1" onClick={()=>{clearAll()}}>Limpar</button>
+                    <button className="btn btn-detalhes m-1 btn-comida" onClick={()=>{filtrar('Comida')}}>Comida</button>
+                    <button className="btn btn-detalhes m-1 btn-emergencias" onClick={()=>{filtrar('Emergências')}}>Emergências</button>
+                    <button className="btn btn-detalhes m-1 btn-outros" onClick={()=>{filtrar('Outros')}}>Outros</button>
+                    <button className="btn btn-detalhes m-1 btn-limpar" onClick={()=>{limparFiltro()}}>Limpar</button>
                 </div>
 
                 {cards.map(item => <Card key={item.id} id={item.id} img={item.foto} titulo={item.titulo} descricao={item.descricao} props={updateModal} tipo={item.tipo} typeButton="vercard"/>)}

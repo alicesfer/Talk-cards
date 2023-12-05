@@ -22,3 +22,20 @@
     object-fit: contain;
     max-height: 800px;
 }
+
+.btn-comida{
+    background-color: #3E41BB !important; 
+}
+
+.btn-emergencias{
+    background-color: #FF0100 !important; 
+}
+
+.btn-outros{
+    background-color: #4094C1 !important; 
+}
+
+.btn-limpar{
+    background-color: #e9e900 !important;
+    color: rgb(92, 92, 92) !important;
+}
