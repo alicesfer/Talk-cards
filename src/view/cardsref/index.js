@@ -57,6 +57,37 @@ function CardsRef(){
 
     };
     
+    var filtrar = (categoria) => {
+        const cards = document.querySelector('.userContent').getElementsByClassName("card");
+        const buttons = document.querySelector('.buttons').getElementsByClassName("btn");
+        for(let a = 0; a < buttons.length; a++){
+            if(buttons[a].innerText.split(' ')[0] === categoria){
+                buttons[a].classList.add("btn-selected");
+            }
+            else{
+                buttons[a].classList.remove("btn-selected");
+            }
+        }
+        for (let i = 0; i < cards.length; i++) {
+            if(cards[i].getAttribute('category') === categoria){
+                cards[i].classList.remove("d-none");
+            }
+            else{
+                cards[i].classList.add("d-none");
+            }
+        }
+    }
+    
+    var limparFiltro = () => {
+        const cards = document.getElementsByClassName("card");
+        const buttons = document.querySelector('.buttons').getElementsByClassName("btn");
+        for (var o = 0; o < buttons.length; o++) {
+            buttons[o].classList.remove("btn-selected");
+        }
+        for (var i = 0; i < cards.length; i++) {
+            cards[i].classList.remove("d-none");
+        }
+    }
 
     return(
         <>
@@ -104,57 +135,35 @@ function CardsRef(){
                 </div>
             </div>
         </div>
+        
 
-        <div className="accordion" id="accordionPanelsStayOpenExample">
-            <div className="accordion-item">
-                <h2 className="accordion-header">
-                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false">
-                        Comida
-                    </button>
-                </h2>
-                <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse">
-                    <div className="accordion-body text-center">
-                    <Card key={'lanche'} id={'lanche'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Fcomidas%2F1.svg?alt=media'} titulo={'Lanche'} descricao={''} tipo='Comida' props={updateModal}/>
-                    <Card key={'almoço'} id={'almoço'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Fcomidas%2F2.svg?alt=media'} titulo={'Almoço'} descricao={''} tipo='Comida' props={updateModal}/>
-                    <Card key={'janta'} id={'janta'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Fcomidas%2F3.svg?alt=media'} titulo={'Janta'} descricao={''} tipo='Comida' props={updateModal}/>
-                    <Card key={'água'} id={'água'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Fcomidas%2F4.svg?alt=media'} titulo={'Água'} descricao={''} tipo='Comida' props={updateModal}/>
-                    <Card key={'suco'} id={'suco'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Fcomidas%2F5.svg?alt=media'} titulo={'Suco'} descricao={''} tipo='Comida' props={updateModal}/>
-                    <Card key={'refrigerante'} id={'refrigerante'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Fcomidas%2F6.svg?alt=media'} titulo={'Refrigerante'} descricao={''} tipo='Comida' props={updateModal}/>
-                    </div>
-                </div>
+
+        <div className="userContent text-center">
+            <div className="buttons">
+            <h3>Filtrar por tipo</h3>
+            <button className="btn btn-detalhes btn-outros" onClick={()=>{filtrar('Comida')}} type="button">Comida <span className="ms-1 badge">6</span></button>
+            <button className="btn btn-detalhes btn-emergencias" onClick={()=>{filtrar('Emergências')}} type="button">Emergências <span className="ms-1 badge">5</span></button>
+            <button className="btn btn-detalhes btn-limpar" onClick={()=>{filtrar('Outros')}} type="button">Outros <span className="ms-1 badge">5</span></button>
+            <button className="btn btn-detalhes btn-comida" onClick={()=>{limparFiltro()}} type="button">Limpar</button>
             </div>
-            <div className="accordion-item">
-                <h2 className="accordion-header">
-                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                        Emergências
-                    </button>
-                </h2>
-                <div id="panelsStayOpen-collapseThree" className="accordion-collapse collapse">
-                    <div className="accordion-body text-center">
-                    <Card key={'polícia'} id={'polícia'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Femergencias%2F1.svg?alt=media'} titulo={'Polícia'} descricao={''} tipo='Emergências' props={updateModal}/>
-                    <Card key={'médico'} id={'médico'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Femergencias%2F2.svg?alt=media'} titulo={'Médico'} descricao={''} tipo='Emergências' props={updateModal}/>
-                    <Card key={'bombeiro'} id={'bombeiro'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Femergencias%2F3.svg?alt=media'} titulo={'Bombeiro'} descricao={''} tipo='Emergências' props={updateModal}/>
-                    <Card key={'ambulância'} id={'ambulância'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Femergencias%2F4.svg?alt=media'} titulo={'Ambulância'} descricao={''} tipo='Emergências' props={updateModal}/>
-                    <Card key={'ajuda'} id={'ajuda'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Femergencias%2F5.svg?alt=media'} titulo={'Ajuda!!!'} descricao={''} tipo='Emergências' props={updateModal}/>
-                    </div>
-                </div>
-            </div>
-            <div className="accordion-item">
-                <h2 className="accordion-header">
-                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-                        Outros
-                    </button>
-                </h2>
-                <div id="panelsStayOpen-collapseFour" className="accordion-collapse collapse">
-                    <div className="accordion-body text-center">
-                    <Card key={'eu'} id={'eu'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Foutros%2FEU.svg?alt=media'} titulo={'Eu'} descricao={''} tipo='Outros' props={updateModal}/>
-                    <Card key={'não'} id={'não'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Foutros%2FNAO.svg?alt=media'} titulo={'Não'} descricao={''} tipo='Outros' props={updateModal}/>
-                    <Card key={'nós'} id={'nós'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Foutros%2FNOS.svg?alt=media'} titulo={'Nós'} descricao={''} tipo='Outros' props={updateModal}/>
-                    <Card key={'sim'} id={'sim'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Foutros%2FSIM.svg?alt=media'} titulo={'Sim'} descricao={''} tipo='Outros' props={updateModal}/>
-                    <Card key={'você'} id={'você'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Foutros%2FVOCE.svg?alt=media'} titulo={'Você'} descricao={''} tipo='Outros' props={updateModal}/>
-                    </div>
-                </div>
-            </div>
+            <Card key={'lanche'} id={'lanche'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Fcomidas%2F1.svg?alt=media'} titulo={'Lanche'} descricao={''} tipo='Comida' props={updateModal}/>
+            <Card key={'almoço'} id={'almoço'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Fcomidas%2F2.svg?alt=media'} titulo={'Almoço'} descricao={''} tipo='Comida' props={updateModal}/>
+            <Card key={'janta'} id={'janta'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Fcomidas%2F3.svg?alt=media'} titulo={'Janta'} descricao={''} tipo='Comida' props={updateModal}/>
+            <Card key={'água'} id={'água'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Fcomidas%2F4.svg?alt=media'} titulo={'Água'} descricao={''} tipo='Comida' props={updateModal}/>
+            <Card key={'suco'} id={'suco'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Fcomidas%2F5.svg?alt=media'} titulo={'Suco'} descricao={''} tipo='Comida' props={updateModal}/>
+            <Card key={'refrigerante'} id={'refrigerante'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Fcomidas%2F6.svg?alt=media'} titulo={'Refrigerante'} descricao={''} tipo='Comida' props={updateModal}/>
+
+            <Card key={'polícia'} id={'polícia'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Femergencias%2F1.svg?alt=media'} titulo={'Polícia'} descricao={''} tipo='Emergências' props={updateModal}/>
+            <Card key={'médico'} id={'médico'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Femergencias%2F2.svg?alt=media'} titulo={'Médico'} descricao={''} tipo='Emergências' props={updateModal}/>
+            <Card key={'bombeiro'} id={'bombeiro'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Femergencias%2F3.svg?alt=media'} titulo={'Bombeiro'} descricao={''} tipo='Emergências' props={updateModal}/>
+            <Card key={'ambulância'} id={'ambulância'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Femergencias%2F4.svg?alt=media'} titulo={'Ambulância'} descricao={''} tipo='Emergências' props={updateModal}/>
+            <Card key={'ajuda'} id={'ajuda'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Femergencias%2F5.svg?alt=media'} titulo={'Ajuda!!!'} descricao={''} tipo='Emergências' props={updateModal}/>
+
+            <Card key={'eu'} id={'eu'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Foutros%2FEU.svg?alt=media'} titulo={'Eu'} descricao={''} tipo='Outros' props={updateModal}/>
+            <Card key={'não'} id={'não'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Foutros%2FNAO.svg?alt=media'} titulo={'Não'} descricao={''} tipo='Outros' props={updateModal}/>
+            <Card key={'nós'} id={'nós'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Foutros%2FNOS.svg?alt=media'} titulo={'Nós'} descricao={''} tipo='Outros' props={updateModal}/>
+            <Card key={'sim'} id={'sim'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Foutros%2FSIM.svg?alt=media'} titulo={'Sim'} descricao={''} tipo='Outros' props={updateModal}/>
+            <Card key={'você'} id={'você'} img={'https://firebasestorage.googleapis.com/v0/b/testers-fc6a9.appspot.com/o/src%2Freferencias%2Foutros%2FVOCE.svg?alt=media'} titulo={'Você'} descricao={''} tipo='Outros' props={updateModal}/>
         </div>
         </>
     )

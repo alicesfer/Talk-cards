@@ -23,12 +23,18 @@
     max-height: 800px;
 }
 
+.buttons .btn{
+    margin: 2px;
+}
+
 .btn-comida{
     background-color: #3E41BB !important; 
 }
 
 .btn-emergencias{
-    background-color: #FF0100 !important; 
+    background-color: #ff7676 !important;
+    color: #652525
+    !important;
 }
 
 .btn-outros{
@@ -38,4 +44,9 @@
 .btn-limpar{
     background-color: #e9e900 !important;
     color: rgb(92, 92, 92) !important;
+}
+
+.btn-selected{
+    transition: transform .3s;
+    transform: scale(1.05);
 }

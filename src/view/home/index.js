@@ -50,27 +50,38 @@ function Home(){
                 });
             });
             setCards(listaCards);
-            console.log(cards)
         });// eslint-disable-next-line
     }, []);
 
     var filtrar = (categoria) => {
         const cards = document.querySelector('.userContent').getElementsByClassName("card");
-        for (let i = 0; i < cards.length; i++) {
-            let tipo = cards[i].getAttribute('category');
-            if(tipo === categoria){
-                cards[i].classList.remove("d-none")
+        const buttons = document.querySelector('.buttons').getElementsByClassName("btn");
+        for(let a = 0; a < buttons.length; a++){
+            if(buttons[a].innerText.split(' ')[0] === categoria){
+                buttons[a].classList.add("btn-selected");
             }
             else{
-                cards[i].classList.add("d-none")
+                buttons[a].classList.remove("btn-selected");
+            }
+        }
+        for (let i = 0; i < cards.length; i++) {
+            if(cards[i].getAttribute('category') === categoria){
+                cards[i].classList.remove("d-none");
+            }
+            else{
+                cards[i].classList.add("d-none");
             }
         }
     }
     
     var limparFiltro = () => {
         const cards = document.getElementsByClassName("card");
+        const buttons = document.querySelector('.buttons').getElementsByClassName("btn");
+        for (var o = 0; o < buttons.length; o++) {
+            buttons[o].classList.remove("btn-selected");
+        }
         for (var i = 0; i < cards.length; i++) {
-            cards[i].classList.remove("d-none")
+            cards[i].classList.remove("d-none");
         }
     }
 
@@ -152,11 +163,20 @@ function Home(){
                 <h2 className="pt-3 position-relative">Aqui estão seus cards!</h2>
 
                 <div className="buttons">
-                <h3>Filtrar por tipo</h3>
-                    <button className="btn btn-detalhes m-1 btn-comida" onClick={()=>{filtrar('Comida')}}>Comida</button>
-                    <button className="btn btn-detalhes m-1 btn-emergencias" onClick={()=>{filtrar('Emergências')}}>Emergências</button>
-                    <button className="btn btn-detalhes m-1 btn-outros" onClick={()=>{filtrar('Outros')}}>Outros</button>
-                    <button className="btn btn-detalhes m-1 btn-limpar" onClick={()=>{limparFiltro()}}>Limpar</button>
+                    <h3>Filtrar por tipo</h3>
+                    
+                    {cards.filter((a) => a.tipo === 'Comida').length !== 0 ? <button className="btn btn-detalhes btn-comida" onClick={()=>{filtrar('Comida')}} type="button">Comida <span className="ms-1 badge">{cards.filter((a) => a.tipo === 'Comida').length}</span></button>
+                    : <button className="btn btn-detalhes btn-comida disabled text-white" type="button">Comida <span className="ms-1 badge">0</span></button>
+                    }
+                    
+                    {cards.filter((a) => a.tipo === 'Emergências').length !== 0 ? <button className="btn btn-detalhes btn-emergencias" onClick={()=>{filtrar('Emergências')}} type="button">Emergências <span className="ms-1 badge">{cards.filter((a) => a.tipo === 'Emergências').length}</span></button>
+                    : <button className="btn btn-detalhes btn-emergencias disabled text-white" type="button">Emergências <span className="ms-1 badge">0</span></button>
+                    }
+
+                    {cards.filter((a) => a.tipo === 'Outros').length !== 0 ? <button className="btn btn-detalhes btn-outros" onClick={()=>{filtrar('Outros')}} type="button">Outros <span className="ms-1 badge">{cards.filter((a) => a.tipo === 'Outros').length}</span></button>
+                    : <button className="btn btn-detalhes btn-outros disabled text-white" type="button">Outros <span className="ms-1 badge">0</span></button>
+                    }
+                    <button className="btn btn-detalhes btn-limpar" onClick={()=>{limparFiltro()}} type="button">Limpar</button>
                 </div>
 
                 {cards.map(item => <Card key={item.id} id={item.id} img={item.foto} titulo={item.titulo} descricao={item.descricao} props={updateModal} tipo={item.tipo} typeButton="vercard"/>)}
