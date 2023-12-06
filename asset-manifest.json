@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/Talk-cards/static/css/main.b3a7f039.css",
-    "main.js": "/Talk-cards/static/js/main.475ce4ab.js",
+    "main.css": "/Talk-cards/static/css/main.528c55f5.css",
+    "main.js": "/Talk-cards/static/js/main.04d20f5f.js",
     "static/media/Logo.svg": "/Talk-cards/static/media/Logo.d658577f2ff8d54d20238db3cd4ae68f.svg",
     "index.html": "/Talk-cards/index.html",
-    "main.b3a7f039.css.map": "/Talk-cards/static/css/main.b3a7f039.css.map",
-    "main.475ce4ab.js.map": "/Talk-cards/static/js/main.475ce4ab.js.map"
+    "main.528c55f5.css.map": "/Talk-cards/static/css/main.528c55f5.css.map",
+    "main.04d20f5f.js.map": "/Talk-cards/static/js/main.04d20f5f.js.map"
   },
   "entrypoints": [
-    "static/css/main.b3a7f039.css",
-    "static/js/main.475ce4ab.js"
+    "static/css/main.528c55f5.css",
+    "static/js/main.04d20f5f.js"
   ]
 }
